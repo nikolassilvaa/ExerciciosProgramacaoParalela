@@ -82,6 +82,5 @@ Aborda tópicos como seções críticas, uso de `atomic`; paralelização de alg
 ---
 
 Autor: Nikolas Silva
-Disciplina de Programação Paralela 
 
 ---
