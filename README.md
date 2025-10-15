@@ -10,7 +10,6 @@ Este repositório reúne exercícios em C++ que exemplificam conceitos fundament
 - [Requisitos](#requisitos)
 - [Como compilar e executar](#como-compilar-e-executar)
 - [Descrição dos Exercícios](#descrição-dos-exercícios)
-- [Observações](#observações)
 
 ---
 
