@@ -1,5 +1,6 @@
 /*
   Exercício 1: Hello World Paralelo
+
   a) Criar uma região paralela com #pragma omp parallel
   b) Cada thread imprime seu número e o total de threads
   c) Configurado para 4 threads

@@ -1,14 +1,11 @@
 /*
-  Arquivo: paralelo_ex5.cpp
-  Objetivo: Exercício 5 - Escalonamento (Scheduling)
-  
+  Exercício 5 - Escalonamento (Scheduling)
+
   Este exercício compara diferentes estratégias de escalonamento:
   a) Execute com schedule(static) e schedule(dynamic, 1000)
   b) Compare os tempos em diferentes quantidades de threads (2, 4, 8)
   c) Explique em quais situações static e dynamic são mais adequados
   
-  Compilação: g++ -O2 -fopenmp -std=c++17 paralelo_ex5.cpp -o paralelo_ex5
-  Execução: ./paralelo_ex5
 */
 
 #include <iostream>     // std::cout, std::endl
@@ -29,6 +26,7 @@ double executar_calculo(const std::vector<double>& x, const std::vector<double>&
     double tempo_inicio = omp_get_wtime();
     
     if (tipo_schedule == "static") {
+        
         /*
           schedule(static): 
           - Divide as iterações em blocos contíguos de tamanho aproximadamente igual
@@ -42,12 +40,14 @@ double executar_calculo(const std::vector<double>& x, const std::vector<double>&
           - Thread 2: iterações 500.000 a 749.999
           - Thread 3: iterações 750.000 a 999.999
         */
+
 #pragma omp parallel for schedule(static)
         for (int i = 0; i < N; ++i) {
             a[i] = x[i]*x[i] + y[i]*y[i] + z[i]*z[i];
         }
     } 
     else if (tipo_schedule == "dynamic") {
+
         /*
           schedule(dynamic, 1000):
           - Distribui blocos de tamanho 1000 iterações dinamicamente
@@ -61,6 +61,7 @@ double executar_calculo(const std::vector<double>& x, const std::vector<double>&
           - Continua até não haver mais trabalho
           - Balanceamento automático entre threads
         */
+
 #pragma omp parallel for schedule(dynamic, 1000)
         for (int i = 0; i < N; ++i) {
             a[i] = x[i]*x[i] + y[i]*y[i] + z[i]*z[i];
@@ -79,6 +80,7 @@ int main() {
     // =========================================================
     // Configuração do problema
     // =========================================================
+
     const int N = 1'000'000;  // Tamanho dos vetores
     
     // Vetores de entrada e saída
@@ -118,6 +120,7 @@ int main() {
     // =========================================================
     // b) Testes com diferentes quantidades de threads
     // =========================================================
+
     std::cout << "=== TESTES DE PERFORMANCE ===\n";
     std::cout << "Threads | Static (s) | Dynamic (s) | Speedup Static | Speedup Dynamic | Razao S/D\n";
     std::cout << "--------|------------|-------------|----------------|-----------------|----------\n";
@@ -154,6 +157,7 @@ int main() {
     // =========================================================
     // Verificação de corretude
     // =========================================================
+
     std::cout << "\n=== VERIFICACAO DE CORRETUDE ===\n";
     double max_erro = 0.0;
     for (int i = 0; i < N; ++i) {
@@ -167,9 +171,6 @@ int main() {
         std::cout << "FALHOU: Resultados diferentes entre escalonamentos\n";
     }
 
-    // =========================================================
-    // c) Análise e explicação detalhada
-    // =========================================================
     std::cout << "\n=== ANALISE DOS RESULTADOS ===\n";
     
     // Encontrar melhor performance
@@ -189,9 +190,10 @@ int main() {
               << "x com " << melhor_dynamic.num_threads << " threads\n\n";
 
 /*
- =======================================================
+
+=======================================================
 c) Explicação detalhada: quando usar static vs dynamic
-=========================================================
+=======================================================
 
 EXPLICACAO: QUANDO USAR STATIC VS DYNAMIC
     
@@ -215,6 +217,7 @@ EXPLICACAO: QUANDO USAR STATIC VS DYNAMIC
    - Calculos matematicos em arrays regulares
 
 2) SCHEDULE(DYNAMIC, chunk_size) - Escalonamento Dinamico:
+
    VANTAGENS:
    - Balanceamento automatico: threads pegam trabalho conforme disponibilidade
    - Adapta-se a cargas irregulares
@@ -234,12 +237,14 @@ EXPLICACAO: QUANDO USAR STATIC VS DYNAMIC
    - Processamento de grafos irregulares
 
 3) CHUNK SIZE (tamanho do bloco):
+
    - Chunk pequeno (ex: 1): maximo balanceamento, maxima sobrecarga
    - Chunk grande (ex: N/num_threads): minima sobrecarga, possivel desbalanceamento
    - Chunk medio (ex: 1000): compromisso entre balanceamento e sobrecarga
    - Regra pratica: chunk = max(1, N / (num_threads * 10))
 
 4) RESULTADOS ESPERADOS NESTE EXEMPLO:
+
    - Para esta expressao vetorial uniforme, static deve ser ligeiramente mais rapido
    - A diferenca sera pequena pois a carga e uniforme
    - Dynamic pode ter pequena sobrecarga adicional

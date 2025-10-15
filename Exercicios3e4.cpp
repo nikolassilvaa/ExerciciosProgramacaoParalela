@@ -37,6 +37,7 @@ int main() {
     }
     
     // EXERCÍCIO 3: Versão sequencial
+
     std::cout << "\n=== Exercicio 3: Comparacao Sequencial vs Paralela ===\n";
     double t0 = omp_get_wtime();
     for (int i = 0; i < N; ++i) {
@@ -60,6 +61,7 @@ int main() {
     std::cout << "Speedup: " << tempo_seq/tempo_par << "x\n";
     
     // EXERCÍCIO 4: Medição detalhada por thread
+    
     std::cout << "\n=== Exercicio 4: Medicao por Thread ===\n";
     
     const int MAX_THREADS = omp_get_max_threads();

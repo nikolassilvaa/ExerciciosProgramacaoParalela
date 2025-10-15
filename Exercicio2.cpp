@@ -1,9 +1,11 @@
 /*
   Exercício 2: Paralelizando um for simples
+
   a) Vetor v de tamanho 100 inicializado com 1
   b) Loop sequencial para somar
   c) Loop paralelo com reduction
   d) Comparar e explicar reduction
+  
 */
 
 #include <iostream>
